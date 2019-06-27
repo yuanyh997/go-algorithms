@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 type Heap []int
 
 func (h *Heap) Init() {
@@ -36,6 +40,10 @@ func (h *Heap) up(i int) {
 }
 
 // 将位置 mid 下滤交换
+//由父节点至子节点依次建堆
+//parent      : i
+//left child  : 2*i+1
+//right child : 2*i+2
 func (h *Heap) down(mid, n int) {
 	for {
 		l := 2*mid + 1
@@ -63,4 +71,13 @@ func (h *Heap) isLess(x, y int) bool {
 
 func (h *Heap) swap(i, j int) {
 	(*h)[i], (*h)[j] = (*h)[j], (*h)[i]
+}
+
+func main() {
+	h := &Heap{7, 5, 2, 3, 6, 4, 1}
+	h.Init()
+	fmt.Println(h)
+	fmt.Println(*h)      // [1 3 2 5 6 4 7] // min heap
+	fmt.Println(h.Pop()) // 1
+	fmt.Println(*h)      // [2 3 4 5 6 7] 	// still min heap
 }
